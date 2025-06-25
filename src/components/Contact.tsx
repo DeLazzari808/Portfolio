@@ -23,20 +23,40 @@ const Contact = () => {
     });
   };
 
+  // --- INÍCIO DA MODIFICAÇÃO: Lógica de Envio Real ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus("idle"); // Reseta o status anterior
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
+    try {
+      const response = await fetch("https://formspree.io/f/xpwrolnz", { // Seu endpoint aqui
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // Reset status after 3 seconds
-      setTimeout(() => setSubmitStatus("idle"), 3000);
-    }, 1000);
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" }); // Limpa o formulário
+
+        // Opcional: esconde a mensagem de sucesso após alguns segundos
+        setTimeout(() => setSubmitStatus("idle"), 5000);
+      } else {
+        // Se a resposta do servidor não for 'ok', consideramos um erro
+        throw new Error("Network response was not ok.");
+      }
+    } catch (error) {
+      console.error("Failed to send the message:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false); // Garante que o botão seja reativado
+    }
   };
+  // --- FIM DA MODIFICAÇÃO ---
 
   const contactInfo = [
     {
@@ -268,7 +288,17 @@ const Contact = () => {
                 )}
               </button>
             </form>
-
+            
+            {/* Mensagem de Erro, caso ocorra */}
+            {submitStatus === "error" && (
+              <div className="mt-4 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4">
+                <p className="text-sm text-red-800 dark:text-red-200">
+                  Something went wrong. Please try again later.
+                </p>
+              </div>
+            )}
+            
+            {/* A mensagem de sucesso que você já tinha */}
             {submitStatus === "success" && (
               <div className="mt-4 rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-4">
                 <p className="text-sm text-green-800 dark:text-green-200">
