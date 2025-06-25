@@ -70,7 +70,7 @@ const Contact = () => {
       icon: <Github className="h-6 w-6" />,
       title: "GitHub",
       value: "github.com/joaolazzari",
-      link: "https://github.com/joaolazzari",
+      link: "https://github.com/DeLazzari808",
     },
   ];
 
