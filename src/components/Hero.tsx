@@ -79,7 +79,7 @@ const Hero = () => {
               <Linkedin size={24} className="text-white" />
             </a>
             <a
-              href="https://github.com/joaolazzari"
+              href="https://github.com/DeLazzari808"
               target="_blank"
               rel="noopener noreferrer"
               className="transform rounded-full bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-white/20"
