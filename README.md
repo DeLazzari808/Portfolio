@@ -9,7 +9,7 @@
 
 This is my personal portfolio, developed to showcase my skills, experience, and projects as a Software Engineer and Front-end Developer. The site is built with a modern stack, focusing on performance, responsiveness, and an excellent user experience.
 
-**[Live Demo Link](https://your-portfolio.vercel.app/)** 👈 
+**[Live Demo Link](https://delazzari-portfolio.vercel.app/)** 👈 
 
 ## ✨ Key Features
 
