@@ -7,7 +7,7 @@ const About = () => {
       icon: <Code className="h-8 w-8 text-blue-600 dark:text-blue-400" />,
       title: "Full-Stack Development",
       description:
-        "Expertise in modern JavaScript ecosystem including React, Node.js, and Firebase",
+        "Expertise in modern JavaScript/TypeScript ecosystem including React, Node.js, and Firebase",
     },
     {
       icon: <Globe className="h-8 w-8 text-blue-600 dark:text-blue-400" />,
@@ -46,7 +46,7 @@ const About = () => {
               I'm a passionate Full-Stack Developer with experience in
               architecting, developing, and deploying modern web applications.
               Currently pursuing my Associate's Degree in Systems Analysis and
-              Development at Unicesumar, I specialize in the JavaScript
+              Development at Unicesumar, I specialize in the JavaScript & TypeScript
               ecosystem with a strong focus on React, Firebase, and
               component-based architecture.
             </p>

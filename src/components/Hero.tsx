@@ -38,12 +38,10 @@ const Hero = () => {
               João Lazzari
             </h1>
             <p className="mx-auto max-w-3xl text-xl font-light text-blue-200 dark:text-blue-100 md:text-2xl">
-              Full-Stack Developer specializing in JavaScript, React, and
-              Firebase
+              Full-Stack Developer specializing in TypeScript, React, and JavaScript
             </p>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-blue-100 dark:text-blue-200">
-              Building modern web applications with a focus on user experience,
-              scalability, and cutting-edge technologies.
+              Building modern web applications with a focus on user experience, scalability, and cutting-edge technologies.
             </p>
           </div>
 
