@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +57,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-baseline space-x-4 md:space-x-2 lg:space-x-4">
               {navItems.map((item) => (
                 <button
                   key={item.href}
@@ -69,7 +71,18 @@ const Header = () => {
                   {item.label}
                 </button>
               ))}
-              
+              {/* Language Toggle Button */}
+              <button
+                onClick={toggleLanguage}
+                className={`ml-2 rounded-md px-2 py-1 text-xs font-semibold transition-colors duration-300 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  isScrolled
+                    ? "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    : "text-white hover:bg-white/10"
+                }`}
+                aria-label="Toggle language"
+              >
+                {language === "en" ? "EN" : "PT"}
+              </button>
               {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}

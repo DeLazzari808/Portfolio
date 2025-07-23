@@ -1,78 +1,102 @@
 import React, { useState } from "react";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+
+const translations = {
+  en: {
+    sectionTitle: "Featured Projects",
+    sectionDesc: "A showcase of my recent work, demonstrating expertise in modern web development, database architecture, and user experience.",
+    liveDemo: "Live Demo",
+    code: "Code",
+    projects: [
+      {
+        title: "Royal Cup",
+        description: "A full-stack web application for managing football tournaments, featuring real-time data updates and a responsive design.",
+        image: "/royalcup-networking.png",
+        technologies: ["JavaScript (ES6+)", "TypeScript", "Vite", "TailwindCSS", "Firebase Realtime Database", "Firebase Hosting"],
+        liveDemo: "https://royal-cup-br.web.app/",
+        github: "https://github.com/DeLazzari808/Royal-Cup/tree/master",
+        category: "Full-Stack Web App",
+      },
+      {
+        title: "Mode - Fashion Industry Platform",
+        description: "A sophisticated web application designed as the central ecosystem for the fashion industry, connecting brands, models, agencies, and designers.",
+        image: "/ModeScreenShot.jpg",
+        technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "Firebase", "Firestore", "Context API"],
+        liveDemo: "https://modeapp.netlify.app/",
+        github: "https://github.com/DeLazzari808/mode-landing-page",
+        category: "Product Architecture",
+      },
+      {
+        title: "Royal Cup Finance",
+        description: "A PWA for shared financial control, optimizing cash management with the Miller-Orr model and real-time data visualization.",
+        image: "/royalcup-finance-cover.png",
+        technologies: ["React.js", "TypeScript", "Tailwind CSS", "Firebase", "Recharts", "PWA"],
+        liveDemo: "https://financeiroroyalcup.web.app/",
+        github: "https://github.com/DeLazzari808/financeiro-royal",
+        category: "Finance / PWA",
+      },
+      {
+        title: "Porto Frio",
+        description: "Professional website for a leading industrial kitchen company, focused on product showcase and quote requests.",
+        image: "/porto-frio-screenshot.png",
+        technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Netlify"],
+        liveDemo: "https://porto-frio.netlify.app/",
+        github: "#",
+        category: "Landing Page",
+      },
+    ],
+  },
+  pt: {
+    sectionTitle: "Projetos em Destaque",
+    sectionDesc: "Uma vitrine dos meus trabalhos recentes, demonstrando experiência em desenvolvimento web moderno, arquitetura de banco de dados e experiência do usuário.",
+    liveDemo: "Ver Online",
+    code: "Código",
+    projects: [
+      {
+        title: "Royal Cup",
+        description: "Aplicação web full-stack para gerenciamento de torneios de futebol, com dados em tempo real e design responsivo.",
+        image: "/royalcup-networking.png",
+        technologies: ["JavaScript (ES6+)", "TypeScript", "Vite", "TailwindCSS", "Firebase Realtime Database", "Firebase Hosting"],
+        liveDemo: "https://royal-cup-br.web.app/",
+        github: "https://github.com/DeLazzari808/Royal-Cup/tree/master",
+        category: "Web App Full-Stack",
+      },
+      {
+        title: "Mode - Plataforma da Indústria da Moda",
+        description: "Aplicação web sofisticada, ecossistema central para a indústria da moda, conectando marcas, modelos, agências e designers.",
+        image: "/ModeScreenShot.jpg",
+        technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "Firebase", "Firestore", "Context API"],
+        liveDemo: "https://modeapp.netlify.app/",
+        github: "https://github.com/DeLazzari808/mode-landing-page",
+        category: "Arquitetura de Produto",
+      },
+      {
+        title: "Royal Cup Finance",
+        description: "PWA para controle financeiro compartilhado, otimizando a gestão de caixa com o modelo Miller-Orr e visualização de dados em tempo real.",
+        image: "/royalcup-finance-cover.png",
+        technologies: ["React.js", "TypeScript", "Tailwind CSS", "Firebase", "Recharts", "PWA"],
+        liveDemo: "https://financeiroroyalcup.web.app/",
+        github: "https://github.com/DeLazzari808/financeiro-royal",
+        category: "Finanças / PWA",
+      },
+      {
+        title: "Porto Frio",
+        description: "Site profissional para empresa líder em cozinhas industriais, focado em portfólio de produtos e orçamentos.",
+        image: "/porto-frio-screenshot.png",
+        technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Netlify"],
+        liveDemo: "https://porto-frio.netlify.app/",
+        github: "#",
+        category: "Landing Page",
+      },
+    ],
+  },
+};
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "Royal Cup",
-      description:
-        "A full-stack web application for managing football tournaments, featuring real-time data updates and a responsive design.",
-      image: "/royalcup-networking.png",
-      technologies: [
-        "JavaScript (ES6+)",
-        "TypeScript",
-        "Vite",
-        "TailwindCSS",
-        "Firebase Realtime Database",
-        "Firebase Hosting",
-      ],
-      liveDemo: "https://royal-cup-br.web.app/",
-      github: "https://github.com/DeLazzari808/Royal-Cup/tree/master",
-      category: "Full-Stack Web App",
-    },
-    {
-      title: "Mode - Fashion Industry Platform",
-      description:
-        "A sophisticated web application designed as the central ecosystem for the fashion industry, connecting brands, models, agencies, and designers.",
-      image: "/ModeScreenShot.jpg",
-      technologies: [
-        "React",
-        "TypeScript",
-        "Vite",
-        "TailwindCSS",
-        "Firebase",
-        "Firestore",
-        "Context API",
-      ],
-      liveDemo: "https://modeapp.netlify.app/",
-      github: "https://github.com/DeLazzari808/mode-landing-page",
-      category: "Product Architecture",
-    },
-    {
-      title: "Royal Cup Finance",
-      description:
-        "A PWA for shared financial control, optimizing cash management with the Miller-Orr model and real-time data visualization.",
-      image: "/royalcup-finance-cover.png",
-      technologies: [
-        "React.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Firebase",
-        "Recharts",
-        "PWA",
-      ],
-      liveDemo: "https://financeiroroyalcup.web.app/",
-      github: "https://github.com/DeLazzari808/financeiro-royal",
-      category: "Finance / PWA",
-    },
-    {
-      title: "Porto Frio",
-      description:
-        "Professional website for a leading industrial kitchen company, focused on product showcase and quote requests.",
-      image: "/porto-frio-screenshot.png",
-      technologies: [
-        "HTML5",
-        "CSS3",
-        "JavaScript",
-        "Tailwind CSS",
-        "Netlify",
-      ],
-      liveDemo: "https://porto-frio.netlify.app/",
-      github: "#",
-      category: "Landing Page",
-    },
-  ];
-
+  const { language } = useLanguage();
+  const t = translations[language];
+  const projects = t.projects;
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleControlClick = (index: number) => {
@@ -95,11 +119,11 @@ const Projects = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
-            Featured Projects
+            {t.sectionTitle}
           </h2>
           <div className="mx-auto mb-8 h-1 w-24 bg-blue-600 dark:bg-blue-500"></div>
           <p className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300">
-            A showcase of my recent work, demonstrating expertise in modern web development, database architecture, and user experience.
+            {t.sectionDesc}
           </p>
         </div>
 
@@ -107,7 +131,7 @@ const Projects = () => {
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
-            aria-label="Previous project"
+            aria-label={language === 'en' ? 'Previous project' : 'Projeto anterior'}
             className="absolute left-0 z-30 flex items-center justify-center h-14 w-14 rounded-full bg-white/80 dark:bg-gray-900/80 text-blue-600 dark:text-blue-400 shadow-lg hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ top: '50%', transform: 'translateY(-50%)' }}
           >
@@ -118,18 +142,15 @@ const Projects = () => {
           <div className="absolute w-full h-full flex items-center justify-center perspective-1000">
             {projects.map((project, index) => {
               const offset = index - activeIndex;
-              const isVisible = Math.abs(offset) <= 2; // Render only nearby cards
-
+              const isVisible = Math.abs(offset) <= 2;
               const transform = `
                 translateX(${offset * 40}%) 
                 scale(${1 - Math.abs(offset) * 0.18})
                 rotateY(${offset * -15}deg)
               `;
-              
               const zIndex = 20 - Math.abs(offset);
               const filter = `blur(${Math.abs(offset) > 0 ? '4px' : '0px'})`;
               const opacity = Math.abs(offset) > 1 ? '0' : '1';
-
               return (
                 <div
                   key={index}
@@ -178,7 +199,7 @@ const Projects = () => {
                           className="flex items-center space-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
                         >
                           <ExternalLink size={16} />
-                          <span>Live Demo</span>
+                          <span>{t.liveDemo}</span>
                         </a>
                         <a
                           href={project.github}
@@ -187,7 +208,7 @@ const Projects = () => {
                           className="flex items-center space-x-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
                         >
                           <Github size={16} />
-                          <span>Code</span>
+                          <span>{t.code}</span>
                         </a>
                       </div>
                     </div>
@@ -200,7 +221,7 @@ const Projects = () => {
           {/* Right Arrow */}
           <button
             onClick={handleNext}
-            aria-label="Next project"
+            aria-label={language === 'en' ? 'Next project' : 'Próximo projeto'}
             className="absolute right-0 z-30 flex items-center justify-center h-14 w-14 rounded-full bg-white/80 dark:bg-gray-900/80 text-blue-600 dark:text-blue-400 shadow-lg hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ top: '50%', transform: 'translateY(-50%)' }}
           >
@@ -217,7 +238,7 @@ const Projects = () => {
               className={`h-3 w-3 rounded-full transition-all duration-300 ${
                 activeIndex === index ? 'w-6 bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
               }`}
-              aria-label={`Go to project ${index + 1}`}
+              aria-label={language === 'en' ? `Go to project ${index + 1}` : `Ir para o projeto ${index + 1}`}
             />
           ))}
         </div>

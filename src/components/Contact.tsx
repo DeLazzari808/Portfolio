@@ -1,7 +1,59 @@
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send, Linkedin, Github } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+
+const translations = {
+  en: {
+    sectionTitle: "Let's Work Together",
+    sectionDesc: "I'm always interested in new opportunities and exciting projects. Let's discuss how we can bring your ideas to life.",
+    getInTouch: "Get In Touch",
+    contactDesc: "Whether you have a project in mind, want to collaborate, or just want to say hello, I'd love to hear from you. I typically respond within 24 hours.",
+    name: "Name *",
+    email: "Email *",
+    subject: "Subject *",
+    message: "Message *",
+    namePlaceholder: "Your name",
+    emailPlaceholder: "your.email@example.com",
+    subjectPlaceholder: "What's this about?",
+    messagePlaceholder: "Tell me about your project or just say hello...",
+    send: "Send Message",
+    sending: "Sending...",
+    sent: "Message Sent!",
+    error: "Something went wrong. Please try again later.",
+    location: "Curitiba, Brazil",
+    phone: "+55 (41) 98727-0447",
+    available: "Available for freelance projects and full-time opportunities.",
+    linkedin: "LinkedIn",
+    github: "GitHub",
+  },
+  pt: {
+    sectionTitle: "Vamos Trabalhar Juntos",
+    sectionDesc: "Estou sempre aberto a novas oportunidades e projetos empolgantes. Vamos conversar sobre como podemos tirar suas ideias do papel.",
+    getInTouch: "Fale Comigo",
+    contactDesc: "Se você tem um projeto em mente, quer colaborar ou apenas dizer oi, ficarei feliz em conversar. Normalmente respondo em até 24 horas.",
+    name: "Nome *",
+    email: "E-mail *",
+    subject: "Assunto *",
+    message: "Mensagem *",
+    namePlaceholder: "Seu nome",
+    emailPlaceholder: "seu.email@exemplo.com",
+    subjectPlaceholder: "Sobre o que é?",
+    messagePlaceholder: "Conte sobre seu projeto ou apenas diga olá...",
+    send: "Enviar Mensagem",
+    sending: "Enviando...",
+    sent: "Mensagem Enviada!",
+    error: "Algo deu errado. Por favor, tente novamente mais tarde.",
+    location: "Curitiba, Brasil",
+    phone: "+55 (41) 98727-0447",
+    available: "Disponível para projetos freelance e oportunidades full-time.",
+    linkedin: "LinkedIn",
+    github: "GitHub",
+  },
+};
 
 const Contact = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,11 +75,10 @@ const Contact = () => {
     });
   };
 
-  // --- START OF MODIFICATION: Real Submission Logic ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus("idle"); // Reset previous status
+    setSubmitStatus("idle");
 
     try {
       const response = await fetch("https://formspree.io/f/xpwrolnz", {
@@ -41,39 +92,35 @@ const Contact = () => {
 
       if (response.ok) {
         setSubmitStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" }); // Clear form
-
-        // Optionally hide success message after a few seconds
+        setFormData({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => setSubmitStatus("idle"), 5000);
       } else {
         throw new Error("Network response was not ok.");
       }
     } catch (error) {
-      console.error("Failed to send the message:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   };
-  // --- END OF MODIFICATION ---
 
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
-      title: "Email",
+      title: t.email,
       value: "joaopedrodelazzari2@gmail.com",
       link: "mailto:joaopedrodelazzari2@gmail.com",
     },
     {
       icon: <Phone className="h-6 w-6" />,
-      title: "Phone",
-      value: "+55 (41) 98727-0447",
+      title: t.phone,
+      value: t.phone,
       link: "tel:+5541987270447",
     },
     {
       icon: <MapPin className="h-6 w-6" />,
-      title: "Location",
-      value: "Curitiba, Brazil",
+      title: t.location,
+      value: t.location,
       link: null,
     },
   ];
@@ -81,13 +128,13 @@ const Contact = () => {
   const socialLinks = [
     {
       icon: <Linkedin className="h-6 w-6" />,
-      title: "LinkedIn",
+      title: t.linkedin,
       value: "linkedin.com/in/delazzari",
       link: "https://linkedin.com/in/delazzari",
     },
     {
       icon: <Github className="h-6 w-6" />,
-      title: "GitHub",
+      title: t.github,
       value: "github.com/DeLazzari808",
       link: "https://github.com/DeLazzari808",
     },
@@ -98,12 +145,11 @@ const Contact = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
-            Let's Work Together
+            {t.sectionTitle}
           </h2>
           <div className="mx-auto mb-8 h-1 w-24 bg-blue-600 dark:bg-blue-500"></div>
           <p className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300">
-            I'm always interested in new opportunities and exciting projects.
-            Let's discuss how we can bring your ideas to life.
+            {t.sectionDesc}
           </p>
         </div>
 
@@ -112,12 +158,10 @@ const Contact = () => {
           <div className="space-y-8">
             <div>
               <h3 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
-                Get In Touch
+                {t.getInTouch}
               </h3>
               <p className="mb-8 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                Whether you have a project in mind, want to collaborate, or just
-                want to say hello, I'd love to hear from you. I typically
-                respond within 24 hours.
+                {t.contactDesc}
               </p>
             </div>
 
@@ -167,7 +211,7 @@ const Contact = () => {
                 htmlFor="name"
                 className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Name *
+                {t.name}
               </label>
               <input
                 type="text"
@@ -177,7 +221,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                placeholder="Your name"
+                placeholder={t.namePlaceholder}
               />
             </div>
             <div>
@@ -185,7 +229,7 @@ const Contact = () => {
                 htmlFor="email"
                 className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Email *
+                {t.email}
               </label>
               <input
                 type="email"
@@ -195,7 +239,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                placeholder="your.email@example.com"
+                placeholder={t.emailPlaceholder}
               />
             </div>
             <div>
@@ -203,7 +247,7 @@ const Contact = () => {
                 htmlFor="subject"
                 className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Subject *
+                {t.subject}
               </label>
               <input
                 type="text"
@@ -213,7 +257,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                placeholder="What's this about?"
+                placeholder={t.subjectPlaceholder}
               />
             </div>
             <div>
@@ -221,7 +265,7 @@ const Contact = () => {
                 htmlFor="message"
                 className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Message *
+                {t.message}
               </label>
               <textarea
                 id="message"
@@ -231,7 +275,7 @@ const Contact = () => {
                 required
                 rows={6}
                 className="w-full resize-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                placeholder="Tell me about your project or just say hello..."
+                placeholder={t.messagePlaceholder}
               ></textarea>
             </div>
             <button
@@ -248,14 +292,14 @@ const Contact = () => {
               {isSubmitting ? (
                 <>
                   <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
-                  <span>Sending...</span>
+                  <span>{t.sending}</span>
                 </>
               ) : submitStatus === "success" ? (
-                <span>Message Sent!</span>
+                <span>{t.sent}</span>
               ) : (
                 <>
                   <Send size={20} />
-                  <span>Send Message</span>
+                  <span>{t.send}</span>
                 </>
               )}
             </button>
@@ -263,7 +307,7 @@ const Contact = () => {
             {submitStatus === "error" && (
               <div className="mt-4 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4">
                 <p className="text-sm text-red-800 dark:text-red-200">
-                  Something went wrong. Please try again later.
+                  {t.error}
                 </p>
               </div>
             )}

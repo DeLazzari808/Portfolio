@@ -1,7 +1,30 @@
 import React from "react";
 import { Github, Linkedin, Mail, Download, ChevronDown } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+
+const translations = {
+  en: {
+    name: "João Lazzari",
+    subtitle: "Full-Stack Developer specializing in TypeScript, React, and JavaScript",
+    description: "Building modern web applications with a focus on user experience, scalability, and cutting-edge technologies.",
+    getInTouch: "Get In Touch",
+    downloadResume: "Download Resume",
+    resumeFile: "Joao_Lazzari_Resume.pdf",
+  },
+  pt: {
+    name: "João Lazzari",
+    subtitle: "Desenvolvedor Full-Stack especializado em TypeScript, React e JavaScript",
+    description: "Construindo aplicações web modernas com foco em experiência do usuário, escalabilidade e tecnologias de ponta.",
+    getInTouch: "Fale Comigo",
+    downloadResume: "Baixar Currículo",
+    resumeFile: "Joao_Lazzari_Curriculo.pdf",
+  },
+};
 
 const Hero = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const scrollToAbout = () => {
     document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -9,7 +32,7 @@ const Hero = () => {
   const downloadResume = () => {
     const link = document.createElement("a");
     link.href = "/DevResume.pdf";
-    link.download = "Joao_Lazzari_Resume.pdf";
+    link.download = t.resumeFile;
     link.click();
   };
 
@@ -35,13 +58,13 @@ const Hero = () => {
           {/* Main Content */}
           <div className="space-y-6">
             <h1 className="text-5xl font-bold leading-tight text-white md:text-7xl">
-              João Lazzari
+              {t.name}
             </h1>
             <p className="mx-auto max-w-3xl text-xl font-light text-blue-200 dark:text-blue-100 md:text-2xl">
-              Full-Stack Developer specializing in TypeScript, React, and JavaScript
+              {t.subtitle}
             </p>
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-blue-100 dark:text-blue-200">
-              Building modern web applications with a focus on user experience, scalability, and cutting-edge technologies.
+              {t.description}
             </p>
           </div>
 
@@ -55,14 +78,14 @@ const Hero = () => {
               }
               className="transform rounded-lg bg-blue-600 dark:bg-blue-700 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700 dark:hover:bg-blue-800 hover:shadow-xl"
             >
-              Get In Touch
+              {t.getInTouch}
             </button>
             <button
               onClick={downloadResume}
               className="flex transform items-center gap-2 rounded-lg border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-white hover:text-blue-900 dark:hover:text-blue-950"
             >
               <Download size={20} />
-              Download Resume
+              {t.downloadResume}
             </button>
           </div>
 
