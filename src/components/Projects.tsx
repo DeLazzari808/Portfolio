@@ -6,9 +6,27 @@ const translations = {
   en: {
     sectionTitle: "Featured Projects",
     sectionDesc: "A showcase of my recent work, demonstrating expertise in modern web development, database architecture, and user experience.",
-    liveDemo: "Live Demo",
+    liveDemo: "Live Site",
     code: "Code",
     projects: [
+      {
+        title: "Beatempo - Digital Platform for Music Agency",
+        description: "A sophisticated web platform for Beatempo, a Curitiba-based music agency focused on boosting independent artists' careers. Built from scratch with a dark, elegant interface that reflects the brand's visual identity and provides a professional user experience.",
+        image: "/beatempo-screenshot.png",
+        technologies: ["HTML5", "Tailwind CSS", "JavaScript (ES6+)"],
+        liveDemo: "https://beatempo.com.br",
+        github: "https://github.com/DeLazzari808",
+        category: "Landing Page",
+      },
+      {
+        title: "Wine & Sense - Immersive Digital Experience",
+        description: "A sophisticated landing page for 'Wine & Sense', an immersive sensory event combining gastronomy, wines, aromas, and art. Built with React and Vite, featuring custom animations, responsive design, and conversion-optimized UX to guide users through an emotional journey to ticket purchase.",
+        image: "/wine-and-sense-screenshot.png",
+        technologies: ["React", "Vite", "Tailwind CSS", "Lucide React", "Vercel", "Git"],
+        liveDemo: "https://wine-and-sense.com.br",
+        github: "https://github.com/DeLazzari808/wine-and-sense",
+        category: "Landing Page",
+      },
       {
         title: "Royal Cup",
         description: "A full-stack web application for managing football tournaments, featuring real-time data updates and a responsive design.",
@@ -50,9 +68,27 @@ const translations = {
   pt: {
     sectionTitle: "Projetos em Destaque",
     sectionDesc: "Uma vitrine dos meus trabalhos recentes, demonstrando experiência em desenvolvimento web moderno, arquitetura de banco de dados e experiência do usuário.",
-    liveDemo: "Ver Online",
+    liveDemo: "Site Ativo",
     code: "Código",
     projects: [
+      {
+        title: "Beatempo - Plataforma Digital para Agência Musical",
+        description: "Plataforma web sofisticada para a Beatempo, agência de Curitiba focada em impulsionar a carreira de artistas independentes. Desenvolvida do zero com interface escura e elegante que reflete a identidade visual da marca e proporciona uma experiência profissional ao usuário.",
+        image: "/beatempo-screenshot.png",
+        technologies: ["HTML5", "Tailwind CSS", "JavaScript (ES6+)"],
+        liveDemo: "https://beatempo.com.br",
+        github: "https://github.com/DeLazzari808",
+        category: "Landing Page",
+      },
+      {
+        title: "Wine & Sense - Experiência Digital Imersiva",
+        description: "Landing page sofisticada para o 'Wine & Sense', evento sensorial que une gastronomia, vinhos, aromas e arte. Desenvolvida com React e Vite, apresentando animações customizadas, design responsivo e UX otimizada para conversão, guiando os usuários através de uma jornada emocional até a compra do ingresso.",
+        image: "/wine-and-sense-screenshot.png",
+        technologies: ["React", "Vite", "Tailwind CSS", "Lucide React", "Vercel", "Git"],
+        liveDemo: "https://wine-and-sense.com.br",
+        github: "https://github.com/DeLazzari808/wine-and-sense",
+        category: "Landing Page",
+      },
       {
         title: "Royal Cup",
         description: "Aplicação web full-stack para gerenciamento de torneios de futebol, com dados em tempo real e design responsivo.",
@@ -170,6 +206,21 @@ const Projects = () => {
                         src={project.image}
                         alt={project.title}
                         className="h-full w-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = `
+                              <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                                <div class="text-center p-4">
+                                  <div class="text-2xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">${project.title.split(' ')[0]}</div>
+                                  <div class="text-xs md:text-sm text-blue-500 dark:text-blue-300">Screenshot</div>
+                                </div>
+                              </div>
+                            `;
+                          }
+                        }}
                       />
                     </div>
                     <div className="p-8 md:w-1/2 flex flex-col justify-between">
