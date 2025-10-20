@@ -28,6 +28,15 @@ const translations = {
         category: "Landing Page",
       },
       {
+        title: "PowerLine - Professional Electrical Services",
+        description: "A comprehensive business website for PowerLine, a professional electrical services company specializing in residential and commercial installations. Features service showcase, project portfolio, customer testimonials, and contact forms with modern design and responsive layout.",
+        image: "/powerline-screenshot.png",
+        technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Vercel"],
+        liveDemo: "https://site-powerline.vercel.app/",
+        github: "https://github.com/DeLazzari808",
+        category: "Business Website",
+      },
+      {
         title: "Royal Cup",
         description: "A full-stack web application for managing football tournaments, featuring real-time data updates and a responsive design.",
         image: "/royalcup-networking.png",
@@ -88,6 +97,15 @@ const translations = {
         liveDemo: "https://wine-and-sense.com.br",
         github: "https://github.com/DeLazzari808/wine-and-sense",
         category: "Landing Page",
+      },
+      {
+        title: "PowerLine - Serviços Elétricos Profissionais",
+        description: "Site empresarial completo para a PowerLine, empresa especializada em serviços elétricos residenciais e comerciais. Apresenta showcase de serviços, portfólio de projetos, depoimentos de clientes e formulários de contato com design moderno e layout responsivo.",
+        image: "/powerline-screenshot.png",
+        technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Vercel"],
+        liveDemo: "https://site-powerline.vercel.app/",
+        github: "https://github.com/DeLazzari808",
+        category: "Site Empresarial",
       },
       {
         title: "Royal Cup",
