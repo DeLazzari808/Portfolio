@@ -251,11 +251,12 @@ const Projects = () => {
                   onClick={() => handleControlClick(index)}
                 >
                   <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-white dark:bg-gray-900 shadow-lg w-full h-full flex flex-col md:flex-row">
-                    <div className="w-full md:w-1/2 h-48 sm:h-48 md:h-full flex-shrink-0">
+                    <div className="w-full md:w-1/2 h-48 sm:h-48 md:h-full flex-shrink-0 relative">
                       <img
                         src={project.image}
                         alt={project.title}
                         className="h-full w-full object-cover"
+                        loading="lazy"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
