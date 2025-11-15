@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
@@ -9,6 +9,15 @@ const translations = {
     liveDemo: "Live Site",
     code: "Code",
     projects: [
+      {
+        title: "WorkNow - Commercial Room Rental Platform",
+        description: "A complete full-stack platform for commercial room rentals connecting property owners and tenants. Features include authentication with role-based access (Owner/Tenant), room management with image uploads, advanced search and filters, booking system with conflict validation, and integrated Stripe payment processing with webhooks.",
+        image: "/worknow-screenshot.png",
+        technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "Stripe", "Zustand", "React Hook Form", "Zod"],
+        liveDemo: "https://worknow-delta.vercel.app/",
+        github: "https://github.com/DeLazzari808",
+        category: "Full-Stack Platform",
+      },
       {
         title: "Beatempo - Digital Platform for Music Agency",
         description: "A sophisticated web platform for Beatempo, a Curitiba-based music agency focused on boosting independent artists' careers. Built from scratch with a dark, elegant interface that reflects the brand's visual identity and provides a professional user experience.",
@@ -81,6 +90,15 @@ const translations = {
     code: "Código",
     projects: [
       {
+        title: "WorkNow - Plataforma de Locação de Salas Comerciais",
+        description: "Plataforma full-stack completa para locação de salas comerciais conectando proprietários e locatários. Inclui autenticação com perfis (Proprietário/Locatário), gestão de salas com upload de imagens, busca avançada e filtros, sistema de reservas com validação de conflitos, e processamento de pagamentos integrado com Stripe e webhooks.",
+        image: "/worknow-screenshot.png",
+        technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "Stripe", "Zustand", "React Hook Form", "Zod"],
+        liveDemo: "https://worknow-delta.vercel.app/",
+        github: "https://github.com/DeLazzari808",
+        category: "Plataforma Full-Stack",
+      },
+      {
         title: "Beatempo - Plataforma Digital para Agência Musical",
         description: "Plataforma web sofisticada para a Beatempo, agência de Curitiba focada em impulsionar a carreira de artistas independentes. Desenvolvida do zero com interface escura e elegante que reflete a identidade visual da marca e proporciona uma experiência profissional ao usuário.",
         image: "/beatempo-screenshot.png",
@@ -152,6 +170,17 @@ const Projects = () => {
   const t = translations[language];
   const projects = t.projects;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleControlClick = (index: number) => {
     setActiveIndex(index);
@@ -168,58 +197,61 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="bg-gray-50 dark:bg-gray-800 py-20 transition-colors duration-300 overflow-hidden"
+      className="bg-gray-50 dark:bg-gray-800 py-12 sm:py-16 md:py-20 transition-colors duration-300 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
+        <div className="mb-8 sm:mb-12 md:mb-16 text-center">
+          <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
             {t.sectionTitle}
           </h2>
           <div className="mx-auto mb-8 h-1 w-24 bg-blue-600 dark:bg-blue-500"></div>
-          <p className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300">
+          <p className="mx-auto max-w-3xl text-lg sm:text-xl text-gray-600 dark:text-gray-300">
             {t.sectionDesc}
           </p>
         </div>
 
-        <div className="relative flex min-h-[600px] w-full items-center justify-center">
+        <div className="relative flex min-h-[500px] sm:min-h-[500px] md:min-h-[600px] w-full items-center justify-center px-2 sm:px-0">
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
             aria-label={language === 'en' ? 'Previous project' : 'Projeto anterior'}
-            className="absolute left-0 z-30 flex items-center justify-center h-14 w-14 rounded-full bg-white/80 dark:bg-gray-900/80 text-blue-600 dark:text-blue-400 shadow-lg hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="absolute left-1 sm:left-0 z-30 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-full bg-white/90 dark:bg-gray-900/90 text-blue-600 dark:text-blue-400 shadow-lg hover:bg-blue-100 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ top: '50%', transform: 'translateY(-50%)' }}
           >
-            <ChevronLeft size={32} />
+            <ChevronLeft size={isMobile ? 20 : 24} className="sm:w-6 sm:h-6 md:w-8 md:h-8" />
           </button>
 
           {/* Cards */}
-          <div className="absolute w-full h-full flex items-center justify-center perspective-1000">
+          <div className="absolute w-full h-full flex items-center justify-center">
             {projects.map((project, index) => {
               const offset = index - activeIndex;
-              const isVisible = Math.abs(offset) <= 2;
-              const transform = `
-                translateX(${offset * 40}%) 
-                scale(${1 - Math.abs(offset) * 0.18})
-                rotateY(${offset * -15}deg)
-              `;
+              const isVisible = isMobile ? Math.abs(offset) <= 0 : Math.abs(offset) <= 1;
+              // Ajustar transform para mobile: menos offset e sem rotação 3D
+              const mobileOffset = offset * 100; // 100% para mobile (um card por vez)
+              const desktopOffset = offset * 40; // 40% para desktop
+              const transform = isMobile
+                ? `translateX(${mobileOffset}%) scale(${1 - Math.abs(offset) * 0.1})`
+                : `translateX(${desktopOffset}%) scale(${1 - Math.abs(offset) * 0.18}) rotateY(${offset * -15}deg)`;
               const zIndex = 20 - Math.abs(offset);
-              const filter = `blur(${Math.abs(offset) > 0 ? '4px' : '0px'})`;
-              const opacity = Math.abs(offset) > 1 ? '0' : '1';
+              const filter = `blur(${Math.abs(offset) > 0 ? '2px' : '0px'})`;
+              const opacity = isMobile 
+                ? (Math.abs(offset) > 0 ? '0' : '1')
+                : (Math.abs(offset) > 0 ? '0.3' : '1');
               return (
                 <div
                   key={index}
-                  className="absolute flex justify-center items-center w-full max-w-3xl md:max-w-4xl h-[420px] md:h-[440px] transform cursor-pointer transition-all duration-500 ease-in-out"
+                  className="absolute flex justify-center items-center w-full max-w-[95%] sm:max-w-3xl md:max-w-4xl h-[500px] sm:h-[420px] md:h-[440px] transform cursor-pointer transition-all duration-500 ease-in-out"
                   style={{
                     transform,
                     zIndex,
-                    filter,
+                    filter: isMobile ? 'none' : filter,
                     opacity: isVisible ? opacity : '0',
                     visibility: isVisible ? 'visible' : 'hidden',
                   }}
                   onClick={() => handleControlClick(index)}
                 >
-                  <div className="overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-lg w-full h-full flex flex-col md:flex-row">
-                    <div className="md:w-1/2 h-48 md:h-full">
+                  <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-white dark:bg-gray-900 shadow-lg w-full h-full flex flex-col md:flex-row">
+                    <div className="w-full md:w-1/2 h-48 sm:h-48 md:h-full flex-shrink-0">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -232,8 +264,8 @@ const Projects = () => {
                             parent.innerHTML = `
                               <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
                                 <div class="text-center p-4">
-                                  <div class="text-2xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">${project.title.split(' ')[0]}</div>
-                                  <div class="text-xs md:text-sm text-blue-500 dark:text-blue-300">Screenshot</div>
+                                  <div class="text-xl sm:text-2xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">${project.title.split(' ')[0]}</div>
+                                  <div class="text-xs sm:text-sm md:text-base text-blue-500 dark:text-blue-300">Screenshot</div>
                                 </div>
                               </div>
                             `;
@@ -241,42 +273,42 @@ const Projects = () => {
                         }}
                       />
                     </div>
-                    <div className="p-8 md:w-1/2 flex flex-col justify-between">
+                    <div className="p-4 sm:p-5 md:p-8 w-full md:w-1/2 flex flex-col min-h-0">
                       <div>
-                        <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+                        <h3 className="mb-2 text-base sm:text-lg md:text-2xl font-bold text-gray-900 dark:text-white leading-tight">
                           {project.title}
                         </h3>
-                        <p className="mb-4 text-gray-600 dark:text-gray-400 min-h-[80px] md:min-h-[100px]">
+                        <p className="mb-3 sm:mb-4 text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                           {project.description}
                         </p>
-                        <div className="mb-6 flex flex-wrap gap-2">
+                        <div className="mb-3 sm:mb-4 md:mb-6 flex flex-wrap gap-1.5 sm:gap-2">
                           {project.technologies.map((tech, i) => (
                             <span
                               key={i}
-                              className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
+                              className="rounded-full bg-blue-100 px-2 sm:px-2.5 md:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
                             >
                               {tech}
                             </span>
                           ))}
                         </div>
                       </div>
-                      <div className="flex space-x-4 mt-4">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 mt-auto pt-2">
                         <a
                           href={project.liveDemo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+                          className="flex items-center justify-center space-x-2 rounded-lg bg-blue-600 px-4 py-2.5 sm:py-2 text-xs sm:text-sm font-semibold text-white transition-colors hover:bg-blue-700 active:scale-95"
                         >
-                          <ExternalLink size={16} />
+                          <ExternalLink size={14} className="sm:w-4 sm:h-4" />
                           <span>{t.liveDemo}</span>
                         </a>
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                          className="flex items-center justify-center space-x-2 rounded-lg border border-gray-300 px-4 py-2.5 sm:py-2 text-xs sm:text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 active:scale-95"
                         >
-                          <Github size={16} />
+                          <Github size={14} className="sm:w-4 sm:h-4" />
                           <span>{t.code}</span>
                         </a>
                       </div>
@@ -291,15 +323,15 @@ const Projects = () => {
           <button
             onClick={handleNext}
             aria-label={language === 'en' ? 'Next project' : 'Próximo projeto'}
-            className="absolute right-0 z-30 flex items-center justify-center h-14 w-14 rounded-full bg-white/80 dark:bg-gray-900/80 text-blue-600 dark:text-blue-400 shadow-lg hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="absolute right-1 sm:right-0 z-30 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-full bg-white/90 dark:bg-gray-900/90 text-blue-600 dark:text-blue-400 shadow-lg hover:bg-blue-100 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             style={{ top: '50%', transform: 'translateY(-50%)' }}
           >
-            <ChevronRight size={32} />
+            <ChevronRight size={isMobile ? 20 : 24} className="sm:w-6 sm:h-6 md:w-8 md:h-8" />
           </button>
         </div>
 
         {/* Navigation Dots */}
-        <div className="mt-8 flex justify-center space-x-3">
+        <div className="mt-6 sm:mt-8 flex justify-center space-x-3">
           {projects.map((_, index) => (
             <button
               key={index}
